@@ -7,7 +7,7 @@ const _ = require("lodash");
 const dotenv = require("dotenv").config();
 const my_api = process.env.MY_APIKEY;
 //const date = require(__dirname + "/date.js");
-
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -177,6 +177,5 @@ app.get("/about", function(req, res){
   res.render("about");
 });
 
-app.listen(process.env.port || 3000, function() {
-  console.log("Server started on port 3000");
-});
+app.listen(port, () => 
+    console.log(`Example app listening on port ${port}!`));
