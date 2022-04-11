@@ -4,6 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const dotenv = require("dotenv").config();
+const my_api = process.env.MY_APIKEY;
+console.log(my_api);
 //const date = require(__dirname + "/date.js");
 
 const app = express();
@@ -13,7 +16,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistv2DB");
+mongoose.connect("mongodb+srv://admin-rafael:"+my_api+"@cluster0.laqkg.mongodb.net/todolistv2DB?retryWrites=true&w=majority");
 
 const itemsSchema = {
   name: String
@@ -97,7 +100,7 @@ app.get('/:customListName', (req, res) => {
           items: defaultItems
         }); 
         list.save();
-        setTimeout(() => {res.redirect("/" + customListName);}, 1000);
+        setTimeout(() => {res.redirect("/" + customListName);}, 200);
       } else if (foundList.items.length === 0) {
         List.findOneAndUpdate({name: foundList.name}, {$push: {items: defaultItems}}, function(err){
           if (err) {
@@ -106,7 +109,7 @@ app.get('/:customListName', (req, res) => {
             //console.log("Default items added on: " + foundList);
           }
         });
-          setTimeout(() => {res.redirect("/" + customListName);}, 1000);
+          setTimeout(() => {res.redirect("/" + customListName);}, 200);
         } else {
         //show existing list
         res.render("list", {listTitle: foundList.name, newListItems: foundList.items});      
