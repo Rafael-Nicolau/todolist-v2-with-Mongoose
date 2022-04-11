@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const dotenv = require("dotenv").config();
 const my_api = process.env.MY_APIKEY;
-console.log(my_api);
 //const date = require(__dirname + "/date.js");
 
 const app = express();
